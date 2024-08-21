@@ -1,0 +1,27 @@
+{
+  "name": "tranquilstay-complete-listing-booking-platform",
+  "version": "1.0.0",
+  "description": "A fully integrated web application designed to provide a seamless experience for property listings, user reviews, and bookings. The platform includes robust backend and frontend development, user authentication with Google Sign-In, and a comprehensive user setup for managing stays and experiences.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruchika123yadav/TranquilStay-Complete-Listing-Booking-Platform.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ruchika123yadav/TranquilStay-Complete-Listing-Booking-Platform/issues"
+  },
+  "homepage": "https://github.com/ruchika123yadav/TranquilStay-Complete-Listing-Booking-Platform#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.5.3",
+    "nodemon": "^3.1.4"
+  }
+}
