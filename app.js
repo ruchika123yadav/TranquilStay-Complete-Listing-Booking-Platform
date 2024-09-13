@@ -66,7 +66,12 @@ app.post('/listings' ,async(req,res)=>{
  })
 
 // CREATE THE UPDATE ROUTE (GET)
+app.get('/listing/:id/edit',async(req,res)=>{
+    let {id} = req.params;
+    const listing=await Listing.findById(id);
+    res.render('listings/edit.ejs',{listing})
 
+})
 
 // SHOW ROUTE
 app.get('/listing/:id',async (req,res)=>{
@@ -76,3 +81,17 @@ app.get('/listing/:id',async (req,res)=>{
 
 })
 
+// ROUT FOR PUT TO UPDATE AFTER THE GET ROUTE
+app.put('/listing/:id',async(req,res)=>{
+    let {id} = req.params;
+    await Listing.findByIdAndUpdate(id,{...req.body.listing})
+    res.redirect(`/listing/${id}`);
+ 
+})
+
+// ROUTE FOR DELETE THE LISTING
+app.delete('/listing/:id/delete',async(req,res)=>{
+    let {id} = req.params;
+   await Listing.findByIdAndDelete(id);
+   res.redirect('/listings')
+ })
