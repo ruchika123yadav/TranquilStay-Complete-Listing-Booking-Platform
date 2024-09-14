@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path')
 const methodOverride= require('method-override')
 const Listing = require('./models/listing.js')
+const ejsMate = require('ejs-mate')
 
 
 const app = express();
@@ -12,6 +13,7 @@ const port = 3000;
 // some useful setups
 app.set("views engine",'ejs')
 app.set("views",path.join(__dirname,'/views'))
+app.engine('ejs',ejsMate);
 
 app.use(express.static(path.join(__dirname,'/public')))
 app.use(express.urlencoded({extended:true}))
@@ -81,7 +83,7 @@ app.get('/listing/:id',async (req,res)=>{
 
 })
 
-// ROUT FOR PUT TO UPDATE AFTER THE GET ROUTE
+// ROUTE FOR PUT TO UPDATE AFTER THE GET ROUTE
 app.put('/listing/:id',async(req,res)=>{
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id,{...req.body.listing})

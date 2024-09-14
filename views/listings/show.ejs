@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TranquilStay</title>
-</head>
+<%- include('layouts/boilerplate') %>
+
 <body>
     <h2>Detail of List</h2>
     <ul>
@@ -19,5 +14,6 @@
 <form method="POST" action="/listing/<%=listing._id%>/delete?_method=DELETE">
     <button>DELETE</button>
 </form>
+
  </body>
-</html>
+ 
