@@ -1,19 +1,31 @@
 <% layout('layouts/boilerplate') -%>
 
 
-<body>
-    <h2>Here is all listings</h2>
-    <form method="get" action="/listing/new">
+    <body>
+        <h2>Here is all listings</h2>
+        <!-- <form method="get" action="/listing/new">
         <button>Add new Listing</button>
-    </form>
-    <br><br>
-    <u>
-        <%for(listing of allListings){%>
-            <li><a href="/listing/<%=listing._id%>">
-                    <%=listing.title%>
-                </a></li>
-            <%}%>
-    </u>
-</body>
-
- 
+    </form> -->
+        <br><br>
+    <div class="me">This is me</div>
+        <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1">
+            <% for(listing of allListings) { %>
+                <div class="col">
+                    <!-- Make sure each card is inside a col div. This way, the grid system (via Bootstrap classes) aligns properly. -->
+                    <a href="/listing/<%=listing._id%>" class="click_link">
+                        <div class="card">
+                            <img src="<%=listing.image%>" class="card-img-top" alt="image">
+                            <div class="card-img-overlay"></div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%=listing.title%>
+                                </h5>
+                                <p class="card-text">&#8377;<%=listing.price.toLocaleString("en-IN")%>/night</p>
+                                <a href="#" class="btn btn-primary">Book</a>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <% } %>
+        </div>
+    </body>

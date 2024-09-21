@@ -1,26 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TranquilStay</title>
-</head>
+<% layout('layouts/boilerplate') -%>
+
+
 <body>
+    <div class="row">
+        <div class="col-8 offset-2">
     <h2>Fill the Information</h2>
+
+
  <form method="post" action="/listing/<%=listing._id%>?_method=PUT">
-   <input type="text"  value='<%=listing.title%>' name="listing[title]"><br><br>
-   <textarea type="text" name="listing[decription]">value='<%=listing.description%>'</textarea><br><br>
-   <input type="text" value='<%=listing.image%>' name="listing[image]"><br><br>
-   <input type="number" value='<%=listing.price%>' name="listing[price]"><br><br>
-   <input type="text" value='<%=listing.location%>' name="listing[location]"><br><br>
-   <input type="text" value='<%=listing.country%>' name="listing[country]">
+
+<div>
+    <label for="title" class="form-label">Title</label>
+   <input type="text" class="form-control"  value='<%=listing.title%>' name="listing[title]">
+</div><br>
+
+<div> 
+    <label for="decription" class="form-label">Description</label>
+   <textarea type="text" class="form-control" name="listing[decription]"><%=listing.description%></textarea>
+</div>
+<br>
+
+<div> 
+    <label for="image" class="form-label">Image Link</label>
+   <input type="text" class="form-control" value='<%=listing.image%>' name="listing[image]">
+</div><br>
+
+<div> 
+    <label for="price" class="form-label">Price</label>
+   <input type="number" class="form-control" value='<%=listing.price%>' name="listing[price]"> 
+</div><br>
+
+<div>
+    <label for="location" class="form-label">Location</label>
+   <input type="text" class="form-control" value='<%=listing.location%>' name="listing[location]"> 
+</div><br>
+
+<div>
+    <label for="country" class="form-label">Country Name</label>
+   <input type="text" class="form-control" value='<%=listing.country%>' name="listing[country]">
+ </div>  
+
 <br><br>
-<button>Edit</button>
+<button class="btn btn-primary" style="background-color: #fe4248; width:5rem;">Edit</button>
  </form>
 
-</body>
-</html>
+</div>
+</div>
 
+</body>
+ 
 
 <!-- Jab tum form ko submit karogi, browser username naam ka field server ko bhejega.
 Form data server pe kuch is tarah se bheja jayega: username=Ruchika. -->
