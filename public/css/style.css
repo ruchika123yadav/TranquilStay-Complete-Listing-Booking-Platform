@@ -109,3 +109,8 @@ footer {
 .me{
     color: red;
 }
+
+.btns{
+    display: flex;
+}
+

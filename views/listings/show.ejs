@@ -1,12 +1,11 @@
 <% layout('layouts/boilerplate') -%>
 
 <body>
-<div class="row">
+<div class="row mb-4">
       <div class="col-6 mt-3 mb-4 offset-3"> 
     <h2><b><%=listing.title%></b></h2>
      </div>
-
-    <div class="col-6 offset-3">
+     <div class="col-6 offset-3">
      <div class="card" style="border: none;">
         <img src="<%=listing.image%>" class="card-img-top" style="height: 45vh;" alt="image">
         <div class="card-body">
@@ -20,10 +19,10 @@
       </div>
 </div>
 
-<div class="col-3">
-  <a href="/listing/<%=listing._id%>/edit">Edit the Listing</a><br><br>
+<div class="btns">
+  <a class="btn btn-primary col-1 offset-3" style="background-color: #fe4248;" href="/listing/<%=listing._id%>/edit">EDIT</a>
 <form method="POST" action="/listing/<%=listing._id%>/delete?_method=DELETE">
-    <button>DELETE</button>
+    <button class="btn btn-dark  offset-5">DELETE</button>
 </form>
 </div>
 

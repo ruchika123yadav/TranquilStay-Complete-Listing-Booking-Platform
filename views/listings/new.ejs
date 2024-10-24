@@ -4,23 +4,27 @@
 <!-- ishme hamne form label class di hai har label ko -->
  <!-- or form control class di hai har input  or textarea ko -->
   <!-- jisse ushpr bootstrap ki styling lag jaye -->
+   <!-- SUCCES AND FAILURE TEXT ADD -->
+    <!-- BINA BHARE FORM SUBMIT NAA HO USKE LIYE BHI NOVALIDATE USE KIYA -->
 
 <body>
     <div class="row">
         <div class="col-8 offset-2">
 
-    <h2>Fill the Information</h2>
- <form method="post" action="/listings">
+    <h2 style="margin-top: 20px;">Fill the Information</h2>
+ <form method="post" action="/listings" novalidate class="needs-validation" >
      
-    <div>
+   <div>
     <label for="title" class="form-label">Title</label>
-   <input type="text" class="form-control" placeholder="Enter the title" name="listing[title]">
+   <input type="text" class="form-control" placeholder="Enter the title" name="listing[title]" required>
+   <div class="valid-feedback">Titile looks good</div>
    </div><br>
    
    <div>
-    <label for="decription" class="form-label">Description</label>
-   <textarea class="form-control" type="text" placeholder="Enter the decription" name="listing[decription]"></textarea>
-   </div><br>
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" type="text" placeholder="Enter the description" name="listing[description]" required></textarea>
+      <div class="invalid-feedback">Please enter a short description</div>
+  </div><br>
 
    <div>
     <label for="image" class="form-label">Image Link</label>
@@ -30,22 +34,27 @@
 <div class="row"> 
    <div class="col-md-3">
     <label for="price" class="form-label">Price</label>
-   <input type="number" class="form-control" placeholder="Enter price" name="listing[price]">
+   <input  class="form-control" placeholder="Enter price" name="listing[price]" required>
+   <div class="invalid-feedback">Please enter a valid price</div>
    </div><br>
    
    <div class="col-md-8">
     <label for="country" class="form-label">Country Name</label>
-   <input type="text" class="form-control" placeholder="Enter the country" name="listing[country]">
+   <input type="text" class="form-control" placeholder="Enter the country" name="listing[country]" required>
+   <div class="invalid-feedback">Country name should be valid</div>
    </div><br>
 </div>
 
    <div>
     <label for="location" class="form-label">Location</label>
-   <input type="text" class="form-control" placeholder="Enter location" name="listing[location]">
+   <input type="text" class="form-control" placeholder="Enter location" name="listing[location]" required>
+   <div class="invalid-feedback">Location should be valid</div>
    </div><br>  
    
   
 <button class="btn btn-primary" style="background-color: #fe4248; width:5rem;">Add</button>
+
+<br><br>
 
  </form>
 </div>
