@@ -6,10 +6,26 @@ const Listing = require('./models/listing.js')
 const ejsMate = require('ejs-mate')
 const asyncWrap=require('./utils/wrapAsync.js')
 const ExpressError=require('./utils/ExpressError.js');
+const validateSchema=require("./vlidateSchema");
+const { valid } = require('joi');
 
 
 const app = express();
 const port = 3000;
+
+
+// middleware for the validation of schema agr maanlo ek koi bhi cheez rah gyi listing ki ham hopssscotch ke through rhe hai mtlb api ke throught o whii hai dikkat
+
+const validateListing= (err,req,res,next)=>{
+          const error = validateSchema.validate(res.body);
+          if(error){
+            let errorMsg=error.details.map((el)=>el.message).join(',')
+            throw new ExpressError(400,errorMsg)
+          }
+          else{
+            next()
+          }
+}
 
 
 // some setups
@@ -64,14 +80,8 @@ app.get('/listing/new',(req,res)=>{
 
 // CREATE NEW POST ROUTE  
 // YHA ASYNC ERROR AA SKTA HAII
-app.post('/listings' ,
+app.post('/listings' ,validateListing,
     asyncWrap(async(req,res,next)=>{
-        console.log(req.body);
-        console.log(req.body.listing);
-        if(!req.body.listing){
-            throw new ExpressError(400,"Send valid data for listing") 
-            //400 means bad request gyi hai server pe
-        } 
     const list = new Listing(req.body.listing) //yha se ham req me se ek list le rhe or ussko fir niche save bhi krwa rhe to hame ush jagaj async error aa skta hai 
     await list.save()
     //  res.send("Here is my post")
@@ -99,13 +109,13 @@ app.get('/listing/:id',
 }))
 
 // ROUTE FOR PUT TO UPDATE AFTER THE GET ROUTE
-app.put('/listing/:id',
+app.put('/listing/:id',validateListing,
     asyncWrap(async(req,res)=>{
     
-    if(!req.body.listing){
-        throw new ExpressError(400,"Send valid data for listing")  // ye wha error show hoga jha pee ham as a API call ho just ye tumhe apne website wale pe nhi dikhega hoppscotch pe dikh jayega
-        //400 means bad request gyi hai server pe
-    }
+    // if(!req.body.listing){
+    //     throw new ExpressError(400,"Send valid data for listing")  // ye wha error show hoga jha pee ham as a API call ho just ye tumhe apne website wale pe nhi dikhega hoppscotch pe dikh jayega
+    //     //400 means bad request gyi hai server pe
+    // }
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id,{...req.body.listing})
     res.redirect(`/listing/${id}`);
@@ -130,5 +140,6 @@ app.all('*',(req,res,next)=>{
 
 app.use((err,req,res,next)=>{
     let {statusCode=500,message="Something went wrong"}=err;//ye defualts values haii message ki agr koi message nhi diya print krne ko to ye aa jayega
-    res.status(statusCode).send(message)
+    // res.status(statusCode).send(message)
+    res.render('listings/error.ejs',{message})
     })
