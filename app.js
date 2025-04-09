@@ -7,7 +7,8 @@ const ejsMate = require('ejs-mate')
 const asyncWrap=require('./utils/wrapAsync.js')
 const ExpressError=require('./utils/ExpressError.js');
 const validateSchema=require("./vlidateSchema");
-const { valid } = require('joi');
+const { valid } = require('joi');// to validate our schema mtlb individual fields ke andr validation perform krr diya
+const Review = require('./models/review.js')
 
 
 const app = express();
@@ -86,7 +87,6 @@ app.post('/listings' ,validateListing,
     await list.save()
     //  res.send("Here is my post")
     res.redirect('/listings')
-    
    
  }))
 
@@ -121,7 +121,7 @@ app.put('/listing/:id',validateListing,
     res.redirect(`/listing/${id}`);
  
 }))
-
+ 
 // ROUTE FOR DELETE THE LISTING
 app.delete('/listing/:id/delete',
     asyncWrap(async(req,res)=>{
@@ -130,6 +130,18 @@ app.delete('/listing/:id/delete',
    res.redirect('/listings')
  }))
 
+ //ROUTE FOR REVIEW THE LISTING
+ app.post("/listing/:id/review",async (req,res)=>{
+    let listing=await Listing.findById(req.params.id);
+    let newreview = new Review(req.body.review);
+
+      listing.review.push(newreview);
+      
+      await newreview.save();
+      await listing.save();
+      console.log("New review saved")
+      res.send("Review is saved successfully")
+ })
 
 
 
@@ -141,5 +153,13 @@ app.all('*',(req,res,next)=>{
 app.use((err,req,res,next)=>{
     let {statusCode=500,message="Something went wrong"}=err;//ye defualts values haii message ki agr koi message nhi diya print krne ko to ye aa jayega
     // res.status(statusCode).send(message)
-    res.render('listings/error.ejs',{message})
+     res.render('listings/error.ejs',{message})
     })
+
+
+
+
+
+    // More details
+    // agr me sirf next() likh rhi mtlb me apne kuch cutsom error handler banaya hai usko call krwa rhi hu
+    //lekin agr mene next(err) aishe likha hai to me express ka custom error handler call karwaya hai

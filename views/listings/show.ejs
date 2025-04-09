@@ -26,6 +26,19 @@
 </form>
 </div>
 
+<!-- REVIEW SECTION -->
+<hr class="col-6 offset-3 mb-2 mt-4">
+<div class="col-6 offset-3 mb-3 mt-3">
+  <h4>Leave a Comment</h4>
+  <form method="post" action="/listing/<%=listing._id%>/review">
+  <label class="form-label" for="rating">Rating</label>
+  <input class="form-control form-range " min="1" max="5" id="rating" type="range" name="Review[rating]">
+   <br>
+   <label class="form-label" for="comment">Comment</label>
+   <textarea class="form-control  " id="comment" type="range" name="Review[comment]" cols="30" rows="3"></textarea>
+   <button class="mb-3 mt-3 btn btn-outline-dark">Submit</button>
+  </form>
+</div>
 
 </div>
 
