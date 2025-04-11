@@ -1,8 +1,7 @@
 <% layout('layouts/boilerplate') -%>
 
     <body>
-        <h2>Here is all listings</h2>
-        <!-- <form method="get" action="/listing/new">
+         <!-- <form method="get" action="/listing/new">
         <button>Add new Listing</button>
     </form> -->
         <br><br>
@@ -11,7 +10,7 @@
                 <div class="col">
                     <!-- Make sure each card is inside a col div. This way, the grid system (via Bootstrap classes) aligns properly. -->
                     <a href="/listing/<%=listing._id%>" class="click_link">
-                        <div class="card">
+                        <div class="listing-card">
                             <img src="<%=listing.image%>" class="card-img-top" alt="image">
                             <div class="card-img-overlay"></div>
                             <div class="card-body">

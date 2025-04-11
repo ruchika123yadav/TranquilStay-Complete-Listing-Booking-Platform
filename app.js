@@ -2,33 +2,19 @@ const express = require('express')
 const mongoose = require('mongoose');
 const path = require('path')
 const methodOverride= require('method-override')
-const Listing = require('./models/listing.js')
-const ejsMate = require('ejs-mate')
-const asyncWrap=require('./utils/wrapAsync.js')
-const ExpressError=require('./utils/ExpressError.js');
-const validateSchema=require("./vlidateSchema");
-const { valid } = require('joi');// to validate our schema mtlb individual fields ke andr validation perform krr diya
-const Review = require('./models/review.js')
-
+ const ejsMate = require('ejs-mate')
+ const ExpressError=require('./utils/ExpressError.js');
+ const { valid } = require('joi');// to validate our schema mtlb individual fields ke andr validation perform krr diya
+ 
+const listings= require("./routers/listing.js")
+const reviews= require("./routers/reviews.js")
 
 const app = express();
 const port = 3000;
 
 
-// middleware for the validation of schema agr maanlo ek koi bhi cheez rah gyi listing ki ham hopssscotch ke through rhe hai mtlb api ke throught o whii hai dikkat
-
-const validateListing= (err,req,res,next)=>{
-          const error = validateSchema.validate(res.body);
-          if(error){
-            let errorMsg=error.details.map((el)=>el.message).join(',')
-            throw new ExpressError(400,errorMsg)
-          }
-          else{
-            next()
-          }
-}
-
-
+ 
+ 
 // some setups
 app.set("views engine",'ejs')
 app.set("views",path.join(__dirname,'/views'))
@@ -69,81 +55,12 @@ app.get('/',(req,res)=>{
 // **************************************************************************
 
 // *********INDEX ROUTE*******
-app.get('/listings',async (req,res)=>{
-   const allListings= await Listing.find()
-   res.render('listings/index.ejs',{allListings})
-})
 
-// CREATE NEW GET ROUTE
-app.get('/listing/new',(req,res)=>{
-    res.render('listings/new.ejs')
-})
 
-// CREATE NEW POST ROUTE  
-// YHA ASYNC ERROR AA SKTA HAII
-app.post('/listings' ,validateListing,
-    asyncWrap(async(req,res,next)=>{
-    const list = new Listing(req.body.listing) //yha se ham req me se ek list le rhe or ussko fir niche save bhi krwa rhe to hame ush jagaj async error aa skta hai 
-    await list.save()
-    //  res.send("Here is my post")
-    res.redirect('/listings')
-   
- }))
+app.use("/listing",listings)
+app.use("/listing/:id",reviews)
 
-// CREATE THE UPDATE ROUTE (GET)
-app.get('/listing/:id/edit',
-    asyncWrap(async(req,res)=>{
-    let {id} = req.params;
-    const listing=await Listing.findById(id);
-    res.render('listings/edit.ejs',{listing})
-
-}))
-
-// SHOW ROUTE
-app.get('/listing/:id',
-    asyncWrap(async (req,res)=>{
-    let {id} = req.params;
-    const listing=await Listing.findById(id);
-    res.render('listings/show.ejs',{listing})
-
-}))
-
-// ROUTE FOR PUT TO UPDATE AFTER THE GET ROUTE
-app.put('/listing/:id',validateListing,
-    asyncWrap(async(req,res)=>{
-    
-    // if(!req.body.listing){
-    //     throw new ExpressError(400,"Send valid data for listing")  // ye wha error show hoga jha pee ham as a API call ho just ye tumhe apne website wale pe nhi dikhega hoppscotch pe dikh jayega
-    //     //400 means bad request gyi hai server pe
-    // }
-    let {id} = req.params;
-    await Listing.findByIdAndUpdate(id,{...req.body.listing})
-    res.redirect(`/listing/${id}`);
  
-}))
- 
-// ROUTE FOR DELETE THE LISTING
-app.delete('/listing/:id/delete',
-    asyncWrap(async(req,res)=>{
-    let {id} = req.params;
-   await Listing.findByIdAndDelete(id);
-   res.redirect('/listings')
- }))
-
- //ROUTE FOR REVIEW THE LISTING
- app.post("/listing/:id/review",async (req,res)=>{
-    let listing=await Listing.findById(req.params.id);
-    let newreview = new Review(req.body.review);
-
-      listing.review.push(newreview);
-      
-      await newreview.save();
-      await listing.save();
-      console.log("New review saved")
-      res.send("Review is saved successfully")
- })
-
-
 
 //  ****************ERROR HANDLERS*****************
 app.all('*',(req,res,next)=>{
@@ -157,9 +74,8 @@ app.use((err,req,res,next)=>{
     })
 
 
-
-
-
     // More details
     // agr me sirf next() likh rhi mtlb me apne kuch cutsom error handler banaya hai usko call krwa rhi hu
     //lekin agr mene next(err) aishe likha hai to me express ka custom error handler call karwaya hai
+    // client side validation ham krte hai form ke jariye 
+    // or server side validation krte hai ham joi ki help se

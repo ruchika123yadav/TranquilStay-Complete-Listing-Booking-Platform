@@ -1,46 +1,91 @@
 <% layout('layouts/boilerplate') -%>
 
-<body>
-<div class="row mb-4">
-      <div class="col-6 mt-3 mb-4 offset-3"> 
-    <h2><b><%=listing.title%></b></h2>
-     </div>
-     <div class="col-6 offset-3">
-     <div class="card" style="border: none;">
-        <img src="<%=listing.image%>" class="card-img-top" style="height: 45vh;" alt="image">
-        <div class="card-body">
-          <p class="card-text"> 
-            <%=listing.description%><br>
-            <b>&#8377;<%=listing.price.toLocaleString("en-IN")%></b><br>
-            <%=listing.location%><br>
-            <%=listing.country%><br>
-        </p>
+  <body>
+    <div class="row mb-4">
+      <div class="col-6 mt-3 mb-4 offset-3">
+        <h2><b>
+            <%=listing.title%>
+          </b></h2>
+      </div>
+      <div class="col-6 offset-3">
+        <div class="listing-card" style="border: none;">
+          <img src="<%=listing.image%>" class="card-img-top" style="height: 45vh;" alt="image">
+          <div class="card-body">
+            <p class="card-text">
+              <%=listing.description%><br>
+                <b>&#8377;<%=listing.price.toLocaleString("en-IN")%></b><br>
+                <%=listing.location%><br>
+                  <%=listing.country%><br>
+            </p>
+          </div>
         </div>
       </div>
-</div>
 
-<div class="btns">
-  <a class="btn btn-primary col-1 offset-3" style="background-color: #fe4248;" href="/listing/<%=listing._id%>/edit">EDIT</a>
-<form method="POST" action="/listing/<%=listing._id%>/delete?_method=DELETE">
-    <button class="btn btn-dark  offset-5">DELETE</button>
-</form>
-</div>
+      <div class="btns">
+        <a class="btn btn-primary col-1 offset-3" style="background-color: #fe4248;"
+          href="/listing/<%=listing._id%>/edit">EDIT</a>
+        <form method="POST" action="/listing/<%=listing._id%>/delete?_method=DELETE">
+          <button class="btn btn-dark  offset-5">DELETE</button>
+        </form>
+      </div>
 
-<!-- REVIEW SECTION -->
-<hr class="col-6 offset-3 mb-2 mt-4">
-<div class="col-6 offset-3 mb-3 mt-3">
-  <h4>Leave a Comment</h4>
-  <form method="post" action="/listing/<%=listing._id%>/review">
-  <label class="form-label" for="rating">Rating</label>
-  <input class="form-control form-range " min="1" max="5" id="rating" type="range" name="Review[rating]">
-   <br>
-   <label class="form-label" for="comment">Comment</label>
-   <textarea class="form-control  " id="comment" type="range" name="Review[comment]" cols="30" rows="3"></textarea>
-   <button class="mb-3 mt-3 btn btn-outline-dark">Submit</button>
-  </form>
-</div>
+      <!-- REVIEW SECTION -->
+      <hr class="col-6 offset-3 mb-2 mt-4">
+      <div class="col-6 offset-3 mb-3 mt-3">
+        <h4>Leave a Comment</h4>
+        <form method="post" action="/listing/<%=listing._id%>/review" novalidate class="needs-validation">
+          <label class="form-label" for="rating">Rating</label>
+          <input class="form-control form-range " min="1" max="5" id="rating" type="range" name="review[rating]">
+          <br>
+          <div>
+            <label class="form-label" for="comment">Comment</label>
+            <textarea class="form-control " id="comment" type="range" name="review[comment]" cols="30" rows="3"
+              required></textarea>
+            <div class="invalid-feedback">Please add some comment</div>
+          </div>
+          <button class="mb-3 mt-3 btn btn-outline-dark">Submit</button>
+        </form>
+      </div>
 
-</div>
+<!-- ALL REVIEWS -->
 
- </body>
- 
+      <div class="col-9 offset-2 mb-2 mt-4">
+      <hr>
+      <h4>All Reviews</h4>
+      <!-- Review Cards -->
+
+      <div class="container mt-4">
+        <div class="row justify-content-center">
+          <% for (review of listing.review) { %>
+            <div class="col-md-6 mb-4 d-flex justify-content-center">
+              <div class="card review-card w-100">
+                <div class="card-body">
+                  <div class="review-header d-flex align-items-center mb-3">
+                    <div class="profile-icon">
+                      <i class="bi bi-person-fill"></i>
+                    </div>
+                    <h5 class="card-title ms-3 mb-0">Ruchika</h5>
+                  </div>
+                  <p class="card-text review-comment">
+                    "<%= review.comment %>"
+                  </p>
+                  <p class="card-text">
+                    <span class="rating-badge"><%= review.rating %> ★</span>
+                  </p>
+                  <form method="post" action="/listing/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE">
+                     <button class="btn btn-dark">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+      
+       
+     </div>
+
+     
+    </div>
+
+  </body>

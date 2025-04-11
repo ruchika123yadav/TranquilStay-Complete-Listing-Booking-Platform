@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const review = require("./review");
+const Review = require("./review");
 
 const Schema = mongoose.Schema;
 
@@ -20,13 +20,19 @@ const Schema = mongoose.Schema;
     price:Number,
     location:String,
     country:String,
-    review:[//yha ham bna rhe haii array kyuki one to many realtionship hai yha
+    review:[//yha ham bna rhe haii array kyuki one to many relationship hai yha
           {
             type:Schema.Types.ObjectId,
             ref:"Review",
           }
     ]
  })
+
+  ListingSchema.post("findOneAndDelete",async(listing)=>{
+   if(listing){
+      await Review.deleteMany({_id:{$in:listing.reviews}})
+   }
+  })
 
  const Listing = mongoose.model('Listing',ListingSchema);
 
