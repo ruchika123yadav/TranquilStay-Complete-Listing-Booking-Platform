@@ -8,12 +8,27 @@ const methodOverride= require('method-override')
  
 const listings= require("./routers/listing.js")
 const reviews= require("./routers/reviews.js")
+// const signedCookie=require('cookie-parser')
+const session=require("express-session")
+const flash = require('connect-flash')
 
 const app = express();
 const port = 3000;
 
+ const sessionOption={
+    secret:"mySuperSecret",
+    resave:false,
+    saveUninitialized:true,
+    cookie:{
+        expires:Date.now +7*24*60*60*1000,
+        maxAge:7*24*60*60*1000,
+        httpOnly:true
+    }
+ } 
 
- 
+ app.use(session(sessionOption))
+ app.use(flash());
+
  
 // some setups
 app.set("views engine",'ejs')
@@ -51,16 +66,37 @@ app.get('/',(req,res)=>{
     res.send("Here is my first full stack website ")
 })
 
+//   FLASH
 
-// **************************************************************************
+app.use((req,res,next)=>{
+    res.locals.success=req.flash("Success")
+    res.locals.failure=req.flash("Failure")
+    next()
+})
 
+ 
 // *********INDEX ROUTE*******
 
 
 app.use("/listing",listings)
 app.use("/listing/:id",reviews)
 
- 
+//  app.get("/cookie",(req,res)=>{
+//        res.cookie("name","Ruchika")
+//        res.cookie("Age","22")
+//        res.send("I saved my cookiee")
+//  })
+
+//  app.get("/signedCookie",(req,res)=>{
+//     res.cookie("Made-in","India",{signed:true})
+//     res.send("Signed cookie send")
+//  })
+
+
+//  app.get("verify",(req,res)=>{
+//     console.log(req.signedCookies);
+//     res.send("verified");
+//  })
 
 //  ****************ERROR HANDLERS*****************
 app.all('*',(req,res,next)=>{

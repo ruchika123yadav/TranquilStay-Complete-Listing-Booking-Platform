@@ -36,8 +36,9 @@ router.post('/' ,validateListing,
     asyncWrap(async(req,res,next)=>{
     const list = new Listing(req.body.listing) //yha se ham req me se ek list le rhe or ussko fir niche save bhi krwa rhe to hame ush jagaj async error aa skta hai 
     await list.save()
+    req.flash("Success","New lisiting Created!")
     //  res.send("Here is my post")
-    res.redirect('/listings')
+    res.redirect('/listing')
    
  }))
 
@@ -46,7 +47,11 @@ router.get('/:id/edit',
     asyncWrap(async(req,res)=>{
     let {id} = req.params;
     const listing=await Listing.findById(id);
-    res.render('listings/edit.ejs',{listing})
+    if(!listing){
+        req.flash("Failure","lisiting you requested for does not exists")
+        res.redirect("/listing")
+    }
+     res.render('listings/edit.ejs',{listing})
 
 }))
 
@@ -55,6 +60,10 @@ router.get('/:id',
     asyncWrap(async (req,res)=>{
     let {id} = req.params;
     const listing=await Listing.findById(id).populate('review');
+    if(!listing){
+        req.flash("Failure","lisiting you requested for does not exists")
+        res.redirect("/listing")
+    }
     res.render('listings/show.ejs',{listing})
 
 }))
@@ -69,6 +78,8 @@ router.put('/:id',validateListing,
     // }
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id,{...req.body.listing})
+    req.flash("Success","lisiting is Updated!")
+
     res.redirect(`/listing/${id}`);
  
 }))
@@ -78,6 +89,7 @@ router.delete('/:id/delete',
     asyncWrap(async(req,res)=>{
     let {id} = req.params;
    await Listing.findByIdAndDelete(id);
+   req.flash("Failure","lisiting is Deleted!")
    res.redirect('/listing')
  }))
 
