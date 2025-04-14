@@ -6,11 +6,18 @@ const methodOverride= require('method-override')
  const ExpressError=require('./utils/ExpressError.js');
  const { valid } = require('joi');// to validate our schema mtlb individual fields ke andr validation perform krr diya
  
-const listings= require("./routers/listing.js")
-const reviews= require("./routers/reviews.js")
+
+//                ROUTERS 
+const listingRouter= require("./routers/listing.js")
+const reviewRouter= require("./routers/reviews.js")
+const userRouter= require("./routers/user.js")
+
 // const signedCookie=require('cookie-parser')
 const session=require("express-session")
 const flash = require('connect-flash')
+const passport= require("passport")//Express compaitable authentication middleware for node.js
+const LocalStrategy=require("passport-local");
+const User=require("./models/user.js");
 
 const app = express();
 const port = 3000;
@@ -28,6 +35,14 @@ const port = 3000;
 
  app.use(session(sessionOption))
  app.use(flash());
+//  ye saari cheez ko hamesha hame session ke niche hi likhna hai kyuki ham chahte hai ki user ko baar login na krna ade agr wo ek page se dusre page me jaa rha hai to wo logout na hoo jaye
+
+ app.use(passport.initialize())//Passport.js ko hamari app me shuru (initialize) karo.
+ app.use(passport.session())//kya same user request bhej rha hai ki differnt user bhej rha
+ passport.use(new LocalStrategy(User.authenticate()))//ye hamara static method hai jo passport mongoose ne by deafult add kiya hai
+//  Ye login karne wale user ko verify karta hai 
+ passport.serializeUser(User.serializeUser());//Jab user login karta hai, to uska ID session me store kiya jata h
+ passport.deserializeUser(User.deserializeUser());// jab user ka session khatam ho gya to uski info ko bhr nikaal do
 
  
 // some setups
@@ -78,8 +93,9 @@ app.use((req,res,next)=>{
 // *********INDEX ROUTE*******
 
 
-app.use("/listing",listings)
-app.use("/listing/:id",reviews)
+app.use("/listing",listingRouter)
+app.use("/listing/:id",reviewRouter)
+app.use("/",userRouter)
 
 //  app.get("/cookie",(req,res)=>{
 //        res.cookie("name","Ruchika")
