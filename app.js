@@ -81,11 +81,11 @@ app.get('/',(req,res)=>{
     res.send("Here is my first full stack website ")
 })
 
-//   FLASH
-
+//   Defining the local variable that can be access in ejs template also
 app.use((req,res,next)=>{
     res.locals.success=req.flash("Success")
     res.locals.failure=req.flash("Failure")
+    res.locals.currUser=req.user;
     next()
 })
 
