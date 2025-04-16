@@ -7,7 +7,7 @@ const methodOverride= require('method-override')
  const { valid } = require('joi');// to validate our schema mtlb individual fields ke andr validation perform krr diya
  
 
-//                ROUTERS 
+//               ROUTERS 
 const listingRouter= require("./routers/listing.js")
 const reviewRouter= require("./routers/reviews.js")
 const userRouter= require("./routers/user.js")
@@ -63,6 +63,7 @@ app.listen(port,(req,res)=>{
     console.log("Conneted to the app")
 })
 
+ 
 // ***********************************************************************
 
 // CONNECTION TO THE DATABASE
