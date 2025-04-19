@@ -39,7 +39,7 @@ router.get('/new',isLoogedin,(req,res)=>{
     await list.save()
     req.flash("Success","New lisiting Created!")
     //  res.send("Here is my post")
-    res.redirect(req.session.redirectUrl)
+    res.redirect("/listing")
    
  }))
 

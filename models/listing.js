@@ -29,7 +29,7 @@ const Schema = mongoose.Schema;
  })
 
   ListingSchema.post("findOneAndDelete",async(listing)=>{
-   if(listing){
+   if(listing){//ye listing se bhi reviews bhi delete krr dega
       await Review.deleteMany({_id:{$in:listing.reviews}})
    }
   })

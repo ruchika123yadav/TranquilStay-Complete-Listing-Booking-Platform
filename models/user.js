@@ -5,7 +5,7 @@ const passportLocalMongoose=require("passport-local-mongoose")
 //ye hamare liye automatically username,hashing,Salting and hashpassword in sabko automatically impement krr deta hai
 
 const userSchema= new Schema({
-    username:{
+    email:{
         type:String,
         required:true,
     }

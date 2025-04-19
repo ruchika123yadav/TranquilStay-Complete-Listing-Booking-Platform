@@ -37,7 +37,7 @@ router.get("/login",(req,res)=>{
 })
 
 router.post("/login",savedRedirectUrl,
-    passport.authenticate("local",{failureRedirect:"/login",failureFlash:true,successFlash:"Welcome to the site"}),
+    passport.authenticate("local",{failureRedirect:"/login",failureFlash:true}),
     
     async(req,res)=>{
         console.log("Hi I am ruchi")

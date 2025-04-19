@@ -37,7 +37,7 @@ router.post("/review",validateReview,asyncWrap(async (req,res)=>{
 router.delete("/reviews/:reviewId",asyncWrap(async(req,res)=>{
     let {id,reviewId}=req.params;
     await Review.findByIdAndDelete(reviewId)
-    await Listing.findByIdAndUpdate(id,{$pull:{review:reviewId}})
+    await Listing.findByIdAndUpdate(id,{$pull:{review:reviewId}})//post request jo di hai mene schema me listing wale usse hat jayega
     req.flash("Failure","Review is Deleted")
 
     res.redirect(`/listing/${id}`)
