@@ -9,14 +9,12 @@ const Schema = mongoose.Schema;
         required:true,
     },
     description:String,
-    image:{
-        type:String,
-        default:"https://unsplash.com/photos/a-house-with-a-pool-in-front-of-it-puk9ju-kWHI",  
-         set:(v)=>
-            v===""
-         ?"https://unsplash.com/photos/a-house-with-a-pool-in-front-of-it-puk9ju-kWHI"
-         :v,
-    },
+    image: {
+      type: String,
+      set: v => (v === "" || v == null ? "./default_image" : v),
+      default: "./default_image",
+  },
+  
     price:Number,
     location:String,
     country:String,
@@ -25,7 +23,11 @@ const Schema = mongoose.Schema;
             type:Schema.Types.ObjectId,
             ref:"Review",
           }
-    ]
+    ],
+    owner:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+    }
  })
 
   ListingSchema.post("findOneAndDelete",async(listing)=>{

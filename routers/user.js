@@ -4,7 +4,9 @@ const User = require("../models/user");
 const asyncWrap=require('../utils/wrapAsync.js')
 const ExpressError=require('../utils/ExpressError.js');
 const passport = require('passport');
-const {isLoogedin,savedRedirectUrl}=require("../middleware.js")
+const {isLoogedin,savedRedirectUrl}=require("../middleware.js");
+const flash = require("connect-flash");
+
 
 
 router.get("/signup",(req,res)=>{
@@ -37,11 +39,10 @@ router.get("/login",(req,res)=>{
 })
 
 router.post("/login",savedRedirectUrl,
-    passport.authenticate("local",{failureRedirect:"/login",failureFlash:true}),
+    passport.authenticate("local",{failureRedirect:"/login",failureFlash:true,failureMessage:"Incorrect Credentails"}),
     
     async(req,res)=>{
-        console.log("Hi I am ruchi")
-        req.flash("Success","Welcome back to the TranquilStay")
+         req.flash("Success","Welcome back to the TranquilStay")
         let redirectUrl=res.locals.redirectUrl || "/listing"
          res.redirect(redirectUrl)
 })
