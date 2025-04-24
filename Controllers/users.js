@@ -35,7 +35,7 @@ module.exports.logout=(req,res,next)=>{
     req.logOut(err=>{
         //ye ek callback leta hai as aparamter mtlb jese hi user logout ho jaye to immediately kya ho uske baad
         if(err){
-           next(err);
+           next(err); 
         }
         req.flash("Failure","You are Successfully Logged Out")
         res.redirect("/listing")

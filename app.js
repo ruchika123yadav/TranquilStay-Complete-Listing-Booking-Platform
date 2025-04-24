@@ -1,4 +1,8 @@
-const express = require('express')
+if(process.env.Node_Env!="production"){
+    require("dotenv").config();
+
+}
+ const express = require('express')
 const mongoose = require('mongoose');
 const path = require('path')
 const methodOverride= require('method-override')
@@ -10,7 +14,8 @@ const flash = require('connect-flash')
 const passport= require("passport")//Express compaitable authentication middleware for node.js
 const LocalStrategy=require("passport-local");
 const User=require("./models/user.js");
- 
+const multer=require('multer')
+
 
 const app = express();
 const port = 3000;
@@ -46,7 +51,8 @@ app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,'/public')))
 
 // app.use(express.urlencoded({extended:true}))
-app.use(express.urlencoded({ extended: true }));//ye form ke data ko javasript object me change krta hai jise me req.body se access kr lete hai jese 
+app.use(express.urlencoded({ extended: true }));//mtlb ki ye simple parse krta hai hamare url data ko
+//ye form ke data ko javasript object me change krta hai jise me req.body se access kr lete hai jese 
 app.use(express.json())
 app.use(methodOverride("_method"))//for the put and delete method
 

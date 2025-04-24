@@ -9,20 +9,21 @@ const flash = require("connect-flash");
 const userController=require("../Controllers/users.js")
 
 
-router.get("/signup",asyncWrap(userController.renderSignUpForm) )
+// SIGNUP ROUTE
+router.route("/signup")
+.get(asyncWrap(userController.renderSignUpForm) )
+.post(asyncWrap(userController.signUp))
 
-router.post("/signup" ,asyncWrap(userController.signUp))
-
-router.get("/login",(req,res)=>{
+//  LOGIN ROUTE
+router.route("/login")
+.get((req,res)=>{
     res.render("./user/login.ejs")
 })
-
-router.post("/login",savedRedirectUrl,
+.post( savedRedirectUrl,
     passport.authenticate("local",{failureRedirect:"/login",failureFlash:true,failureMessage:"Incorrect Credentails"}),
  asyncWrap(userController.login))
-    
-     
 
-router.get("/logout", asyncWrap(userController.logout))
+//  LOGOUT ROUTE
+router.get("/logout",userController.logout)
 
 module.exports=router

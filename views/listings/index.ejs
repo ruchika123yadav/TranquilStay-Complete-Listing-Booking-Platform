@@ -1,6 +1,74 @@
 <% layout('layouts/boilerplate') -%>
 
+   <style>
+    .feature{
+        display: flex;
+        flex-wrap: wrap;
+      border: 1px solid rgb(63, 60, 60);    
+      border-radius: 45px;
+     }
+    .feature-box{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-right: 59px;  
+         margin-top: 30px;
+         font-size: 19px;
+         opacity: 0.8;
+         cursor: pointer;
+    }
+    .feature-box:hover{
+      opacity: 1;
+    }
+   </style>
+ 
+
     <body>
+       <div class="feature">
+        <div class="feature-box">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </div>
+        <div class="feature-box">
+            <div><i class="fa-solid fa-house"></i></div>
+            <p>Rooms</p>
+        </div>
+        <div class="feature-box">
+            <div><i class="fa-solid fa-mug-hot"></i></div>
+            <p>Breakfast</p>
+        </div>
+        <div class="feature-box">
+            <div><i class="fa-solid fa-chess-rook"></i></div>
+            <p>Castle</p>
+        </div>
+        <div class="feature-box">
+            <div><i class="fa-solid fa-wheat-awn"></i></i></div>
+            <p>Farms</p>
+        </div>
+        <div class="feature-box">
+            <div><i class="fa-solid fa-house-chimney-window"></i> </div>
+            <p>Cabins</p>
+        </div>
+        <div class="feature-box">
+            <div><i class="fa-solid fa-umbrella-beach"></i></div>
+            <p>Beaches</p>
+        </div>
+        <div class="feature-box">
+            <div><i class="fa-solid fa-snowflake"></i></div>
+            <p>Arctic</p>
+        </div>
+        <div class="feature-box">
+            <div><i class="fa-solid fa-house-flood-water"></i></div>
+            <p>LakeFront</p>
+        </div>
+        <div class="feature-box">
+            <div><i class="fa-solid fa-palette"></i>  </div>
+            <p>Arts</p>
+        </div>
+       </div>
+
+
          <!-- <form method="get" action="/listing/new">
         <button>Add new Listing</button>
     </form> -->
@@ -11,11 +79,11 @@
                     <!-- Make sure each card is inside a col div. This way, the grid system (via Bootstrap classes) aligns properly. -->
                     <a href="/listing/<%=listing._id%>" class="click_link">
                         <div class="listing-card">
-                            <img src="<%=listing.image%>" class="card-img-top" alt="image">
+                            <img src="<%=listing.image.url%>" class="card-img-top" alt="image">
                             <div class="card-img-overlay"></div>
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <%=listing.title%>
+                                   <br> <%=listing.title%>
                                 </h5>
                                 <p class="card-text">&#8377;<%=listing.price.toLocaleString("en-IN")%>/night</p>
                                 <a href="#" class="btn btn-primary">Book</a>

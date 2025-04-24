@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Review = require("./review");
+const { string } = require("joi");
 
 const Schema = mongoose.Schema;
 
@@ -10,9 +11,8 @@ const Schema = mongoose.Schema;
     },
     description:String,
     image: {
-      type: String,
-      set: v => (v === "" || v == null ? "./default_image" : v),
-      default: "./default_image",
+       url:String,
+       filename:String,
   },
   
     price:Number,

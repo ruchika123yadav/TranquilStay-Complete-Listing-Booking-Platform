@@ -25,7 +25,10 @@ module.exports.showListing=async (req,res)=>{
 
 
 module.exports.createListing=async(req,res,next)=>{
+    let url=req.file.path
+    let filename=req.file.filename
     const list = new Listing(req.body.listing) //yha se ham req me se ek list le rhe or ussko fir niche save bhi krwa rhe to hame ush jagaj async error aa skta hai 
+    list.image={url,filename}
     list.owner=req.user._id;
     await list.save()
     req.flash("Success","New lisiting Created!")
@@ -35,13 +38,11 @@ module.exports.createListing=async(req,res,next)=>{
  }
 
  module.exports.renderEditForm=async(req,res)=>{
-    console.log("Ruchiiiiii")
-     let {id} = req.params;
-     console.log("Ruchi")
-     const listing=await Listing.findById(id);
+      let {id} = req.params;
+      const listing=await Listing.findById(id);
      if(!listing){
          req.flash("Failure","lisiting you requested for does not exists")
-         res.redirect("/listing")
+         return res.redirect("/listing")
      }
       res.render('listings/edit.ejs',{listing})
  
@@ -55,7 +56,14 @@ module.exports.createListing=async(req,res,next)=>{
     //     //400 means bad request gyi hai server pe
     // }
     let {id} = req.params;
-    await Listing.findByIdAndUpdate(id,{...req.body.listing})
+     
+   let list= await Listing.findByIdAndUpdate(id,{...req.body.listing})//ye req.body file ke alawa sab kuch save krr dega
+   if(typeof req.file!=="undefined"){
+    let url=req.file.path;
+    let filename=req.file.filename
+    list.image={url,filename};
+    await list.save();
+   }
     req.flash("Success","lisiting is Updated!")
 
     res.redirect(`/listing/${id}`);
