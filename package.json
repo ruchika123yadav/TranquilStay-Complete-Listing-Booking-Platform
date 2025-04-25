@@ -1,4 +1,7 @@
 {
+  "engines":{
+    "node":"18.12.1"
+  },
   "name": "tranquilstay-complete-listing-booking-platform",
   "version": "1.0.0",
   "description": "A fully integrated web application designed to provide a seamless experience for property listings, user reviews, and bookings. The platform includes robust backend and frontend development, user authentication with Google Sign-In, and a comprehensive user setup for managing stays and experiences.",
@@ -21,6 +24,7 @@
     "cloudinary": "^2.6.0",
     "connect": "^3.7.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
@@ -30,6 +34,7 @@
     "flash": "^1.1.0",
     "joi": "^17.13.3",
     "method-override": "^3.0.0",
+    "mongo-connect": "^0.0.6",
     "mongoose": "^8.5.3",
     "multer": "^1.4.5-lts.2",
     "multer-storage-cloudinary": "^4.0.0",

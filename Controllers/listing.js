@@ -31,7 +31,7 @@ module.exports.createListing=async(req,res,next)=>{
     list.image={url,filename}
     list.owner=req.user._id;
     await list.save()
-    req.flash("Success","New lisiting Created!")
+    req.flash("Success","Your Page is created at the bottom!")
     //  res.send("Here is my post")
     res.redirect("/listing")
    

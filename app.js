@@ -2,6 +2,7 @@ if(process.env.Node_Env!="production"){
     require("dotenv").config();
 
 }
+const mongoStore=require('connect-mongo')
  const express = require('express')
 const mongoose = require('mongoose');
 const path = require('path')
@@ -27,6 +28,7 @@ app.listen(port,(req,res)=>{
 
  
 //*************** */ CONNECTION TO THE DATABASE*****************
+const localUrl="mongodb://127.0.0.1:27017/TranquilStay";
 
 main().then(()=>{
     console.log("Connected to mongoose")
@@ -34,8 +36,8 @@ main().then(()=>{
     console.log(e)
 })
 
-async function main(){
-    await mongoose.connect('mongodb://127.0.0.1:27017/TranquilStay')
+ async function main(){
+    await mongoose.connect(localUrl)
 }
 
 app.get('/',(req,res)=>{
@@ -61,14 +63,30 @@ app.use(methodOverride("_method"))//for the put and delete method
 //  ********************  EXPRESS   ROUTERS **********************
 const listingRouter= require("./routers/listing.js")
 const reviewRouter= require("./routers/reviews.js")
-const userRouter= require("./routers/user.js")
+const userRouter= require("./routers/user.js");
+const { log } = require("console");
 
  
 
 
 // ************* SETUP FOR THE SESSION AND COOKIE ****************
+
+
+const store=mongoStore.create({
+    mongoUrl:localUrl,
+    crypto:{
+    secret:process.env.SECRET
+    },
+    touchAfter:24*3600,
+});
+
+store.on("error",()=>{
+ console.log("Error in Session Store",err)
+})
+
  const sessionOption={
-    secret:"mySuperSecret",
+    store,
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
     cookie:{
