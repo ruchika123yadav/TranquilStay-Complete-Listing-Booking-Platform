@@ -114,7 +114,10 @@ app.use((req,res,next)=>{
     next()
 })
 
- 
+app.get("/", (req, res) => {
+    res.redirect("/listing");  // or render a home page if you have one
+  });
+  
 
 // *********INDEX ROUTE*******
 app.use("/listing",listingRouter)
