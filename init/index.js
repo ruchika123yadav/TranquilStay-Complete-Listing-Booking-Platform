@@ -26,6 +26,9 @@ async function intiDB() {
   await Listing.deleteMany({});
   // 5. Naya data insert karo
 //   await Listing.insertMany(initData.data);
+initData.data=initData.data.map((obj)=>({...obj,owner:'6810ac5a9c9d1ea8ea456434'}))
+initData.data=initData.data.map((obj)=>({...obj}))
+await  Listing.insertMany(initData.data)
   console.log('🎉 Data inserted successfully');
 }
 
@@ -39,3 +42,6 @@ main().catch(err => {
 // initData.data=initData.data.map((obj)=>({...obj,owner:'67fcfc39504329106cff4d24'}))
 // initData.data=initData.data.map((obj)=>({...obj}))
 // await  Listing.insertMany(initData.data)
+
+
+// 6810ac5a9c9d1ea8ea456434

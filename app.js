@@ -48,7 +48,7 @@ app.get('/',(req,res)=>{
 
 
 // ************This is the path setup for views and public folder*****************
-app.set("views engine",'ejs')
+app.set("view engine",'ejs')
 app.set("views",path.join(__dirname,'/views'))
 app.engine('ejs',ejsMate);
 app.use(express.static(path.join(__dirname,'/public')))
@@ -91,7 +91,7 @@ store.on("error",()=>{
     resave:false,
     saveUninitialized:true,
     cookie:{
-        expires:Date.now +7*24*60*60*1000,
+        expires: Date.now() + 7*24*60*60*1000,
         maxAge:7*24*60*60*1000,
         httpOnly:true
     }

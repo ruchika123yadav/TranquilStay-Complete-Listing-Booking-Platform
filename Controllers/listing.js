@@ -9,6 +9,7 @@ module.exports.index=
 
 
 module.exports.renderNewForm=(req,res)=>{
+    console.log("Ruchika")
     res.render('listings/new.ejs')
 }
 
@@ -41,7 +42,7 @@ module.exports.createListing=async(req,res,next)=>{
       let {id} = req.params;
       const listing=await Listing.findById(id);
      if(!listing){
-         req.flash("Failure","lisiting you requested for does not exists")
+         req.flash("Failure","Page you requested for does not exists")
          return res.redirect("/listing")
      }
       res.render('listings/edit.ejs',{listing})
@@ -64,7 +65,7 @@ module.exports.createListing=async(req,res,next)=>{
     list.image={url,filename};
     await list.save();
    }
-    req.flash("Success","lisiting is Updated!")
+    req.flash("Success","Page is Updated!")
 
     res.redirect(`/listing/${id}`);
  
@@ -73,6 +74,6 @@ module.exports.createListing=async(req,res,next)=>{
 module.exports.deleteListing=async(req,res)=>{
     let {id} = req.params;
    await Listing.findByIdAndDelete(id);
-   req.flash("Failure","lisiting is Deleted!")
+   req.flash("Failure","Your Page is Deleted!")
    res.redirect('/listing')
  }
