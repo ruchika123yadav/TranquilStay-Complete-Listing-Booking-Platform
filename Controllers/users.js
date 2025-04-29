@@ -5,6 +5,8 @@ module.exports.renderSignUpForm=(req,res)=>{
 module.exports.signUp=async(req,res)=>{
     try{
         let {username,email,password}=req.body;
+        console.log(username);
+        
     const newUser= new User({username,email})
     console.log(newUser)
     await User.register(newUser,password)
@@ -15,6 +17,8 @@ module.exports.signUp=async(req,res)=>{
          req.flash("Success","Welcome to the TranquilStay")
     res.redirect("/listing")
     })
+
+    // newUser.save();
 
 }catch(e){
   req.flash("Failure",e.message)

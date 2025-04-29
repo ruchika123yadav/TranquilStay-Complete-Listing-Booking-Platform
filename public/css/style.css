@@ -43,18 +43,33 @@ html {
 
 /* *******FOOTER********** */
 
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ✅ Your existing CSS (unchanged with 1 small tweak) */
 footer {
     height: 8rem;
     padding: 10px;
     background-color: #222222;
     color: aliceblue;
-     
+}
+
+/* ✅ Content area will take remaining space */
+main {
+    flex: 1;
 }
 
 .f-info-links a {
      text-decoration: none;
      color: inherit;
-
 }
 
 .f-info-links a:hover {
@@ -65,15 +80,16 @@ footer {
     display: flex;
     text-align: center;
     flex-wrap: wrap;
-    align-items: space-evenly;
     justify-content: center;
+    align-items: center;  /* ✅ added for better vertical align */
 }
 
 .icons {
     width: 100%;
     height: 2rem;
     font-size: large;
-}
+    text-decoration: none;
+ }
 
 .company-name {
     width: 100%;
@@ -187,3 +203,8 @@ footer {
     box-shadow: 3px 3px 3px rgba(21, 20, 20, 0.4);
     border-radius: 5px;
 }
+
+
+
+/*              MEDIA QUERIES            */
+

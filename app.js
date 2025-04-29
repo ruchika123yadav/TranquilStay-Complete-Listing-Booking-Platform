@@ -16,6 +16,7 @@ const passport= require("passport")//Express compaitable authentication middlewa
 const LocalStrategy=require("passport-local");
 const User=require("./models/user.js");
 const multer=require('multer')
+const dbUrl=process.env.ATLASBB_URL;
 
 
 const app = express();
@@ -28,7 +29,7 @@ app.listen(port,(req,res)=>{
 
  
 //*************** */ CONNECTION TO THE DATABASE*****************
-const localUrl="mongodb://127.0.0.1:27017/TranquilStay";
+// const localUrl="mongodb://127.0.0.1:27017/TranquilStay";
 
 main().then(()=>{
     console.log("Connected to mongoose")
@@ -37,7 +38,7 @@ main().then(()=>{
 })
 
  async function main(){
-    await mongoose.connect(localUrl)
+    await mongoose.connect(dbUrl)
 }
 
 app.get('/',(req,res)=>{
@@ -73,7 +74,7 @@ const { log } = require("console");
 
 
 const store=mongoStore.create({
-    mongoUrl:localUrl,
+    mongoUrl:dbUrl,
     crypto:{
     secret:process.env.SECRET
     },
