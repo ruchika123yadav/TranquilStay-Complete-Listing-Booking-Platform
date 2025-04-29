@@ -41,11 +41,6 @@ main().then(()=>{
     await mongoose.connect(dbUrl)
 }
 
-app.get('/',(req,res)=>{
-    res.send("Here is my first full stack website ")
-})
-
-
 
 // ************This is the path setup for views and public folder*****************
 app.set("view engine",'ejs')
