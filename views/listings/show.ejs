@@ -9,9 +9,9 @@
           </b></h2>
       </div>
       <!-- <div class="col-6 offset-3"> -->
-      <div class="col-12 col-md-8 offset-md-2 px-0">
+      <div class="col-12 col-md-8 offset-md-2 px-0 px-2 px-md-0">
         <div class="listing-card" style="border: none;">
-          <img src="<%=listing.image.url%>" class="card-img-top img-fluid w-100" style="max-height: 60vh; object-fit: cover;" alt="image">
+          <img src="<%=listing.image.url%>" class="card-img-top img-fluid w-100" style="max-height: 60vh; object-fit: cover; border-radius: 10px;" alt="image">
           <div class="card-body">
             <p class="card-text">
               <p><i>Owned by: <b><%=listing.owner.username%></b></i></p>
@@ -37,8 +37,9 @@
 
       <!-- REVIEW SECTION -->
 
-      <hr class="col-6 offset-3 mb-2 mt-4">
-      <div class="col-6 offset-3 mb-3 mt-3">
+      <hr class="col-12 col-md-6 offset-md-3 px-3 px-md-0 mb-3 mt-3">
+      <!-- <div class="col-6 offset-3 mb-3 mt-3"> -->
+      <div class="col-12 col-md-6 offset-md-3 px-3 px-md-0 mb-3 mt-3">
         
         <%if(currUser){%>
         <h4>Leave a Comment</h4><br>
@@ -70,7 +71,8 @@
       </div>
 
  
-      <div class="col-9 offset-2 mb-2 mt-4">
+      <!-- <div class="col-9 offset-2 mb-2 mt-4"> -->
+      <div class="col-12 col-md-9 offset-md-2 px-3 px-md-0 mb-2 mt-4">
       <hr>
       <h4>All Reviews</h4>
  
@@ -79,7 +81,7 @@
         <div class="row justify-content-center">
           <% for (review of listing.review) { %>
             <!-- <div class="col-md-6 mb-4 d-flex justify-content-center"> -->
-            <div class="col-12 col-md-6 mb-4 d-flex justify-content-center">
+            <div class="col-12 col-md-6 mb-4 d-flex justify-content-center px-2">
               <div class="card review-card w-100">
                 <div class="card-body">
                   <div class="review-header d-flex align-items-center mb-3">
@@ -96,7 +98,7 @@
                   </p>
                   <%if(currUser && currUser._id.equals(review.author._id)){%>
                   <form method="post" action="/listing/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE">
-                     <button class="btn btn-dark">Delete</button>
+                     <button class="btn btn-dark w-100 w-md-auto">Delete</button>
                   </form>
                   <%}%>
                 </div>

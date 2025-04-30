@@ -328,3 +328,63 @@ main {
     padding: 0 !important;
   }
 }
+
+@media (max-width: 768px) {
+  .col-md-8.offset-md-2 {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+    padding-left: 15px !important; /* Left padding */
+    padding-right: 15px !important; /* Right padding */
+  }
+  
+  .listing-card img {
+    border-radius: 8px !important; /* Thoda rounded corners for aesthetics */
+  }
+}
+
+/* Review Section Mobile Fixes */
+@media (max-width: 768px) {
+  /* Comment Form Padding */
+  .needs-validation {
+    padding: 0 10px !important;
+  }
+
+  /* Review Cards Spacing */
+  .review-card {
+    margin: 10px 0 !important;
+  }
+
+  /* Star Rating Scale */
+  .starability-slot {
+    transform: scale(0.9);
+  }
+
+  /* Review Text Size */
+  .review-comment {
+    font-size: 14px;
+  }
+}
+
+/* Signup Page Mobile Fixes */
+@media (max-width: 768px) {
+  .text-md-start {
+    text-align: center !important; /* Mobile pe center heading */
+    font-size: 1.5rem !important;
+  }
+  
+  .needs-validation {
+    padding: 15px 15px !important; /* Form content padding */
+  }
+}
+
+/* Login Page Mobile Fixes */
+@media (max-width: 768px) {
+  .login-heading {
+    font-size: 1.5rem !important; /* Mobile pe heading size chota */
+    text-align: center !important;
+  }
+  
+  .needs-validation {
+    padding: 15px 15px !important; /* Form content padding */
+  }
+}

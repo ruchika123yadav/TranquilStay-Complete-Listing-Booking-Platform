@@ -25,6 +25,7 @@ module.exports.signUp=async (req, res) => {
 module.exports.login=async(req,res)=>{
          req.flash("Success","Welcome back to the TranquilStay")
         let redirectUrl=res.locals.redirectUrl || "/listing"
+        console.log(redirectUrl)
          res.redirect(redirectUrl)
 }
 
