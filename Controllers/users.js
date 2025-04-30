@@ -10,8 +10,13 @@ module.exports.signUp=async (req, res) => {
   
       const user = new User({ username, email });
       await User.register(user, password);
-  
-      res.redirect('/listing'); // Send only one response
+      req.login(user,(err)=>{
+        if(err){
+            return next(err);
+        }
+         req.flash("Success","Welcome to the TranquilStay")
+    res.redirect("/listing")
+    })
   
     } catch (e) {
         req.flash("Failure","A user with the given username is already registered")
