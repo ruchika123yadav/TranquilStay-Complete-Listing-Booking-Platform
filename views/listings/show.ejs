@@ -1,38 +1,50 @@
 <% layout('layouts/boilerplate') -%>
 
   <body>
-    <div class="row mb-4">
-      <!-- <div class="col-6 mt-3 mb-4 offset-3"> -->
-      <div class="col-12 col-md-6 offset-md-3">
-        <h2><b>
-            <%=listing.title%>
-          </b></h2>
-      </div>
-      <!-- <div class="col-6 offset-3"> -->
-      <div class="col-12 col-md-8 offset-md-2 px-0 px-2 px-md-0">
-        <div class="listing-card" style="border: none;">
-          <img src="<%=listing.image.url%>" class="card-img-top img-fluid w-100" style="max-height: 60vh; object-fit: cover; border-radius: 10px;" alt="image">
-          <div class="card-body">
-            <p class="card-text">
-              <p><i>Owned by: <b><%=listing.owner.username%></b></i></p>
-              <%=listing.description%><br>
-                <b>&#8377;<%=listing.price.toLocaleString("en-IN")%></b><br>
-                <%=listing.location%><br>
-                  <%=listing.country%><br>
-            </p>
-          </div>
-        </div>
-      </div>
+    <!-- Image & Content Section -->
+<div class="row mb-4">
+  <!-- Heading (Desktop pe centered) -->
+  <div class="col-12 text-center mb-4">
+      <h2 class="display-5" style="margin-top: 10px !important;"><b><%=listing.title%></b></h2>
+   </div>
 
-         <%if(currUser && currUser._id.equals(listing.owner._id)){%>
-      <div class="btns">
-        <a class="btn btn-primary col-1 offset-3" style="background-color: #fe4248;"
-          href="/listing/<%=listing._id%>/edit">EDIT</a>
-        <form method="POST" action="/listing/<%=listing._id%>/delete?_method=DELETE">
-          <button class="btn btn-dark  offset-5">DELETE</button>
-        </form>
+  <!-- Image & Details (Comment section jaisa layout) -->
+  <div class="col-12 col-md-8 offset-md-2 px-3 px-md-0">
+      <div class="card border-0">
+          <!-- Image (Desktop pe fixed height, Mobile pe auto) -->
+          <img src="<%=listing.image.url%>" 
+               class="card-img-top img-fluid rounded-3" 
+               style="height: 50vh; object-fit: cover;" 
+               alt="<%=listing.title%>">
+
+          <!-- Content (Comment section jaisa spacing) -->
+          <div class="card-body p-4">
+            <p class="lead"><i>Owned by: <b><%=listing.owner.username%></b></i></p>
+              <p class="card-text fs-5">
+                  <%=listing.description%>
+              </p>
+              <ul class="list-unstyled">
+                  <li class="mb-3">📍 <b><%=listing.location%>, <%=listing.country%></b></li>
+                  <li class="mb-3">💲 <b>₹<%=listing.price.toLocaleString("en-IN")%>/night</b></li>
+              </ul>
+          </div>
       </div>
-       <%}%>
+  </div>
+
+  <!-- Edit/Delete Buttons (Comment section ke buttons jaisa) -->
+  <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+  <div class="col-12 col-md-8 offset-md-2 px-3 px-md-0 mt-4">
+      <div class="d-flex gap-3">
+          <a href="/listing/<%=listing._id%>/edit" class="btn btn-primary flex-grow-1" style="background-color: #fe4248;">
+              EDIT
+          </a>
+          <form method="POST" action="/listing/<%=listing._id%>/delete?_method=DELETE" class="flex-grow-1">
+              <button class="btn btn-dark w-100">DELETE</button>
+          </form>
+      </div>
+  </div>
+  <% } %>
+</div>
 
 
       <!-- REVIEW SECTION -->
