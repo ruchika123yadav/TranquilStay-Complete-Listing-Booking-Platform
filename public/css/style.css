@@ -96,6 +96,8 @@ main {
     height: 2rem;
 }
 
+
+
 /* CARD */
 
 .listing-card{
@@ -208,3 +210,121 @@ main {
 
 /*              MEDIA QUERIES            */
 
+ 
+  /* ================ Media Queries (Mobile Responsive) ================ */
+
+/* Tablet (768px se chota) */
+@media (max-width: 768px) {
+  /* Navbar Adjustments */
+  .navbar-collapse {
+    background-color: white;
+    padding: 15px;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  /* Listing Cards Grid */
+  .row-cols-lg-3 {
+    gap: 1rem !important;
+  }
+
+  /* Forms (Edit/New/Login/Signup) */
+  .col-8 {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  /* Feature Boxes */
+  .feature-box {
+    margin-right: 30px !important;
+    font-size: 16px !important;
+  }
+
+  /* Alert Messages */
+  .alert {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* Mobile (576px se chota) */
+@media (max-width: 576px) {
+  /* Global Adjustments */
+  body {
+    font-size: 14px;
+  }
+
+  /* Navbar Brand */
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  /* Listing Cards */
+  .card-img-top {
+    height: 12rem !important;
+  }
+
+  /* Feature Boxes */
+  .feature {
+    justify-content: center;
+    gap: 15px;
+    padding: 10px !important;
+  }
+  .feature-box {
+    margin-right: 15px !important;
+    font-size: 14px !important;
+  }
+
+  /* Forms */
+  .col-8.offset-2 {
+    padding: 0 15px !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  /* Review Cards */
+  .review-card {
+    width: 100% !important;
+  }
+
+  /* Edit/Delete Buttons */
+  .btns {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btns a, .btns button {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  /* Footer */
+  .f-info-links {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .f-info-links {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+
+/* Show Page Image Adjustments */
+@media (max-width: 768px) {
+  .listing-card img {
+    min-height: 40vh !important; /* Mobile pe height badhao */
+    width: 100% !important;
+  }
+}
+
+/* Mobile pe image ko full width aur margin-free */
+@media (max-width: 768px) {
+  .col-md-8.offset-md-2 {
+    margin-left: 0 !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+}

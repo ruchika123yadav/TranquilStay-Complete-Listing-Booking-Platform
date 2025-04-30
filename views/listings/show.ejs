@@ -2,14 +2,16 @@
 
   <body>
     <div class="row mb-4">
-      <div class="col-6 mt-3 mb-4 offset-3">
+      <!-- <div class="col-6 mt-3 mb-4 offset-3"> -->
+      <div class="col-12 col-md-6 offset-md-3">
         <h2><b>
             <%=listing.title%>
           </b></h2>
       </div>
-      <div class="col-6 offset-3">
+      <!-- <div class="col-6 offset-3"> -->
+      <div class="col-12 col-md-8 offset-md-2 px-0">
         <div class="listing-card" style="border: none;">
-          <img src="<%=listing.image.url%>" class="card-img-top" style="height: 45vh;" alt="image">
+          <img src="<%=listing.image.url%>" class="card-img-top img-fluid w-100" style="max-height: 60vh; object-fit: cover;" alt="image">
           <div class="card-body">
             <p class="card-text">
               <p><i>Owned by: <b><%=listing.owner.username%></b></i></p>
@@ -76,7 +78,8 @@
       <div class="container mt-4">
         <div class="row justify-content-center">
           <% for (review of listing.review) { %>
-            <div class="col-md-6 mb-4 d-flex justify-content-center">
+            <!-- <div class="col-md-6 mb-4 d-flex justify-content-center"> -->
+            <div class="col-12 col-md-6 mb-4 d-flex justify-content-center">
               <div class="card review-card w-100">
                 <div class="card-body">
                   <div class="review-header d-flex align-items-center mb-3">

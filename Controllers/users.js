@@ -1,7 +1,7 @@
 const User = require("../models/user");
 
 module.exports.renderSignUpForm=(req,res)=>{
-    res.render("./user/signup.ejs");
+    res.render("user/signup.ejs");
 }
 
 module.exports.signUp=async (req, res) => {
@@ -14,8 +14,8 @@ module.exports.signUp=async (req, res) => {
       res.redirect('/listing'); // Send only one response
   
     } catch (e) {
-      console.log(e);
-      if (!res.headersSent) {
+        req.flash("Failure","A user with the given username is already registered")
+       if (!res.headersSent) {
         res.render('signup', { errorMessage: e.message });
       }
     }
