@@ -5,7 +5,7 @@
 <div class="row mb-4">
   <!-- Heading (Desktop pe centered) -->
   <div class="col-12 text-center mb-4">
-      <h2 class="display-5" style="margin-top: 10px !important;"><b><%=listing.title%></b></h2>
+      <h2 class="display-5" style="margin-top: 10px !important; color: #fe4248;"><b><%=listing.title%></b></h2>
    </div>
 
   <!-- Image & Details (Comment section jaisa layout) -->
@@ -54,7 +54,7 @@
       <div class="col-12 col-md-6 offset-md-3 px-3 px-md-0 mb-3 mt-3">
         
         <%if(currUser){%>
-        <h4>Leave a Comment</h4><br>
+        <h4 style="color: #fe4248;">Leave a Comment</h4><br>
         <form method="post" action="/listing/<%=listing._id%>/review" novalidate class="needs-validation">
            <!-- Star section -->           
            <label for="rating" class="form-label">Rating</label>
@@ -86,7 +86,7 @@
       <!-- <div class="col-9 offset-2 mb-2 mt-4"> -->
       <div class="col-12 col-md-9 offset-md-2 px-3 px-md-0 mb-2 mt-4">
       <hr>
-      <h4>All Reviews</h4>
+      <h4 style="color: #fe4248;">All Reviews</h4>
  
       <!-- Review cards -->
       <div class="container mt-4">
